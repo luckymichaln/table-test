@@ -1,0 +1,234 @@
+.row__item-name
+    width: 30%
+
+.row__item-age
+    width: 27%
+
+.row__item-zodiac
+    margin-right: auto
+
+.table-container
+    display: flex
+    flex-flow: column wrap
+    max-width: 630px
+    margin: 80px auto
+
+.header
+    display: flex
+    justify-content: space-between
+    list-style-type: none
+    padding: 10px 20px
+
+    .header__item-description
+        font-size: 18px
+        color: $color-text-header
+        text-shadow: 0 1px 1px $color-text-shadow
+
+.table
+    position: relative
+    overflow-x: scroll
+    min-height: 254px
+    width: 630px
+    padding: 6px 0
+    border-radius: 5px
+    background-color: $color-table-bg
+    overflow: visible
+
+    &::before,
+    &::after
+        content: ''
+        position: absolute
+        left: 0
+        width: 100%
+        height: 2px
+        background-color: $color-base-bg
+
+    &::before
+        top: 4px
+
+    &::after
+        bottom: 4px
+        box-shadow: 0 -3px 6px $color-table-bg
+
+.row
+    display: flex
+    justify-content: space-between
+    align-items: center
+    position: relative
+    width: 100%
+    height: 30px
+    padding: 0 0 0 20px
+    margin-bottom: 1px
+    background-color: $color-table-bg
+    transition: background-color .07s ease-out
+
+    &::after
+        content: ''
+        position: absolute
+        bottom: -1px
+        width: 590px
+        left: 20px
+        height: 1px
+        background-color: $color-table-border
+
+    &.row_active,
+    &:hover
+        width: 638px
+        transform: translateX(-8px)
+        background-color: $color-row-active
+
+        .row__item .button
+            border-left: 1px solid $color-table-border
+            color: $color-white
+            background-color: $color-red
+
+            .trash-can
+                background-color: $color-white
+
+        &::before
+            content: ''
+            position: absolute
+            left: 0
+            bottom: -8px
+            border-right: 8px solid $color-table-border
+            border-bottom: 8px solid transparent
+
+.row__item
+    font-size: 14px
+    color: $color-white
+
+    &.row__item-button
+        display: flex
+        position: relative
+        width: 100px
+        height: 100%
+
+.button
+    position: relative
+    z-index: 10
+    width: 100%
+    height: 100%
+    padding: 0 20px 0 18px
+    border: none
+    font:
+        weight: 500
+        size: 11px
+    text-transform: uppercase
+    text-align: left
+    color: $color-table-bg
+    background-color: transparent
+    cursor: pointer
+    transition: background-color .07s ease-out
+
+    &::before
+        content: ''
+        position: absolute
+        z-index: -1
+        right: 0
+        bottom: 0
+        width: 0
+        height: 100%
+        transition: width .2s ease-out
+
+    &:active,
+    &:focus
+        outline: none
+
+    &:hover .trash-can
+        &::after,
+        &::before
+            transform: rotate(11deg) translateY(-2px)
+
+.trash-can
+    display: inline-block
+    position: absolute
+    right: 21px
+    bottom: calc(50% - 9px)
+    height: 14px
+    width: 12px
+    border-bottom-right-radius: 1px
+    border-bottom-left-radius: 1px
+    background-color: $color-red
+    transition: transform .2s transform .2s cubic-bezier(0.24, -0.15, 0.44, 2.16)
+
+    &::after,
+    &::before
+        content: ''
+        position: absolute
+        display: inline-block
+        background-color: inherit
+        transition: transform .15s cubic-bezier(0.43, -0.08, 0.05, 1.93) .1s
+
+    &::after
+        top: -4px
+        left: 3px
+        width: 6px
+        height: 2px
+
+    &::before
+        top: -3px
+        left: -1px
+        width: 14px
+        height: 2px
+
+.row_active
+    .trash-can
+        background-color: $color-white
+        animation: trashCanMove .5s
+        animation-fill-mode: forwards
+
+        &::before,
+        &::after
+            animation: trashCanCoverMove .5s
+
+    .row__item-button
+        width: 80px
+        transition: width .15s ease-out
+
+    .button
+        padding: 0
+        text-align: center
+        color: $color-white
+
+        &::before
+            width: 100%
+            background-color: $color-button-confirm
+
+        &:hover .trash-can
+            &::before,
+            &::after
+                transform: rotate(0)
+
+
+// Animations keyframes
+@keyframes trashCanMove
+    0%
+        transform: translateX(0) rotate(0)
+
+    60%
+        transform: translateX(-70px) rotate(-10deg)
+
+    80%
+        transform: translateX(-70px) rotate(10deg)
+
+    90%
+        transform: translateX(-70px) rotate(0)
+
+    100%
+        transform: translateX(-70px) rotate(0)
+
+@keyframes trashCanCoverMove
+    0%
+        transform: rotate(0)
+
+    20%
+        transform: rotate(10deg)
+
+    60%
+        transform: rotate(-10deg)
+
+    85%
+        transform: rotate(10deg) translateY(-1px)
+
+    100%
+        transform: rotate(0)
