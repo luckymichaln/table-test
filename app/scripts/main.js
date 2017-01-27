@@ -19,12 +19,12 @@ function activateRow(ev) {
     ev.stopPropagation();
     clearRows();
     clickedRow.classList.add(activeClass);
-
+    this.innerHTML = 'Confirm<span class="trash-can"></span>'
     if (this.classList.contains(deleteConfirmClass)) {
         let rowToDelete = this.parentElement.parentElement;
         table.removeChild(rowToDelete);
     }
-    
+
     this.classList.add(deleteConfirmClass);
 }
 
